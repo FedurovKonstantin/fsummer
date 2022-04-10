@@ -2,8 +2,27 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class ListPage extends StatelessWidget {
+class ListPage extends StatefulWidget {
   const ListPage({Key? key}) : super(key: key);
+
+  @override
+  State<ListPage> createState() => _ListPageState();
+}
+
+class _ListPageState extends State<ListPage> {
+  late final List<Widget> items;
+
+  @override
+  void initState() {
+    super.initState();
+    items = List.generate(
+      100,
+      (index) => SimpleListItem(
+        title: title,
+        color: color,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +31,13 @@ class ListPage extends StatelessWidget {
         title: const Text("Простой список"),
       ),
       body: ListView.separated(
-        itemCount: 100,
+        itemCount: items.length,
         padding: const EdgeInsets.symmetric(
           horizontal: 2,
           vertical: 10,
         ),
         itemBuilder: (context, index) {
-          return const SimpleListItem();
+          return items[index];
         },
         separatorBuilder: (context, index) => const SizedBox(
           height: 10,
@@ -26,10 +45,6 @@ class ListPage extends StatelessWidget {
       ),
     );
   }
-}
-
-class SimpleListItem extends StatelessWidget {
-  const SimpleListItem({Key? key}) : super(key: key);
 
   Color get color {
     final random = Random();
@@ -43,18 +58,27 @@ class SimpleListItem extends StatelessWidget {
 
   String get title {
     final titles = [
-      "տպագրության և տպագրական արդյունաբերության համար նախատեսված մոդելային տեքստ է",
-      "është një tekst shabllon i industrisë së printimit dhe shtypshkronjave",
-      "è un testo segnaposto utilizzato nel settore della tipografia e della stampa",
-      "je demonstrativní výplňový text používaný v tiskařském a knihařském průmyslu",
-      "это текст-'рыба', часто используемый в печати и вэб-дизайне",
+      "Над высокой классической аркой парадного хода громоздилось двухэтажное строение в кремовых тонах.",
+      "Если хотите еще посмотреть – пожалуйста, можно не торопиться, – промолвил водитель. – Есть целых восемь минут.",
+      "Хотя, положим, человеку, умеющему как следует писать письма, нет особой надобности этим заниматься",
+      "Описав пешком круг по городу, я заходил в контору по сдаче жилья и подбирал себе пансион подешевле.",
+      "Заурядная газетная хроника. Молоденький журналист, едва закончив университет, получил задание и опробовал перо.",
     ];
     return titles[Random().nextInt(5)];
   }
+}
+
+class SimpleListItem extends StatelessWidget {
+  final String title;
+  final Color color;
+  const SimpleListItem({
+    Key? key,
+    required this.title,
+    required this.color,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final title = this.title;
     return Padding(
       padding: const EdgeInsets.all(5),
       child: Row(
@@ -75,7 +99,7 @@ class SimpleListItem extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           Expanded(
