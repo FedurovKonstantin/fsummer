@@ -15,6 +15,10 @@ class ChoisePage extends StatelessWidget {
               page: AppRoutes.list,
               title: "Простой список",
             ),
+            PageButton(
+              page: AppRoutes.animationList,
+              title: "Список с анимациями",
+            ),
           ],
         ),
       ),
