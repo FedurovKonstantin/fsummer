@@ -11,6 +11,7 @@ class ListPage extends StatefulWidget {
 
 class _ListPageState extends State<ListPage> {
   late final List<Widget> items;
+  late final ScrollController scrollController;
 
   @override
   void initState() {
@@ -22,6 +23,13 @@ class _ListPageState extends State<ListPage> {
         color: color,
       ),
     );
+    scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    scrollController.dispose();
   }
 
   @override
@@ -30,7 +38,20 @@ class _ListPageState extends State<ListPage> {
       appBar: AppBar(
         title: const Text("Простой список"),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          scrollController.animateTo(
+            scrollController.position.maxScrollExtent,
+            duration: Duration(seconds: 10),
+            curve: Curves.linear,
+          );
+        },
+        child: const Icon(
+          Icons.star,
+        ),
+      ),
       body: ListView.separated(
+        controller: scrollController,
         itemCount: items.length,
         padding: const EdgeInsets.symmetric(
           horizontal: 2,

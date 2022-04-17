@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fsummer/animation_list_page.dart';
 import 'package:fsummer/choise_page.dart';
 import 'package:fsummer/list_page.dart';
+import 'package:fsummer/paint_page.dart';
 
 Route<dynamic> onGenegrateRouttes(RouteSettings settings) {
   Widget page = Container();
@@ -13,6 +14,9 @@ Route<dynamic> onGenegrateRouttes(RouteSettings settings) {
       break;
     case AppRoutes.list:
       page = ListPage();
+      break;
+    case AppRoutes.paint:
+      page = PaintPage();
       break;
     case AppRoutes.animationList:
       page = AnimationListPage();
@@ -47,4 +51,5 @@ class AppRoutes {
   static const initial = '/';
   static const list = '/list';
   static const animationList = '/animation_list';
+  static const paint = '/paint';
 }
